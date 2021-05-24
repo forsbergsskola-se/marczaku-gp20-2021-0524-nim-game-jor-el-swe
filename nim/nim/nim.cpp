@@ -2,7 +2,9 @@
 //
 
 #include <iostream>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <string>
+#include <sstream>
 #include "nim.h"
 
 using namespace std;
@@ -19,16 +21,9 @@ void playNim() {
     int numPlayers = 0;
     int currentPlayer = 0;
 
-    while (numPlayers != 1 && numPlayers != 2)
-    {
-        cout << ("Enter Number of Players (1/2): ");
-        cin >> numPlayers;
-        if (!cin)
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-    }
+
+    numPlayers = getNumberFromPlayer("Enter Number of Players (1/2): ", minNumberOfPlayers, maxNumberOfPlayers);
+
     cout << "You choose " << numPlayers << " number of players" << endl;
 
     //players take turns to draw matches; may draw 1,2 or 3 matches (not more or less); 
@@ -39,18 +34,11 @@ void playNim() {
         int playerSelection = 0;
         if (numPlayers == 2 || currentPlayer == 0)
         {
+            std::ostringstream oss;
+            oss << "Player " << currentPlayer + 1 << ", choose number of matches (1-3):";
+            std::string instruction = oss.str();
 
-            while (playerSelection != 1 && playerSelection != 2 && playerSelection != 3)
-            {
-                cout << "Player " << currentPlayer + 1 << ", choose number of matches (1-3):";
-
-                cin >> playerSelection;
-                if (!cin)
-                {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                }
-            }
+            playerSelection = getNumberFromPlayer(instruction, 1, 3);
         }
         else //ai's turn
         {
@@ -72,6 +60,22 @@ void playNim() {
     }
     //player who has to take last match loses;
     displayWinner(numPlayers, currentPlayer);
+}
+
+int getNumberFromPlayer(string instruction, int minSelection, int maxSelection)
+{
+    int playerSelection = -1;
+    while (playerSelection < minSelection || playerSelection > maxSelection)
+    {
+        cout << instruction;
+        cin >> playerSelection;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+    return playerSelection;
 }
 
 void initGame()
