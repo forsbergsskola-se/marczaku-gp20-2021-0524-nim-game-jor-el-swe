@@ -23,6 +23,7 @@ void playNim() {
     int currentPlayer = 0;
 
     cout << "Welcome to Nim!\n";
+    cout << "Your objective is to make the other player take the last match.\n";
 
     while (numPlayers != 1 && numPlayers != 2)
     {
@@ -40,7 +41,7 @@ void playNim() {
     while (true)
     {
         cout << endl;
-        cout << "Matches left: ";
+        cout << "Matches left: "<< numMatches<<"\n";
         //make pritty ASCII art of matches
         for (int i = 0; i < numMatches; i++)
         {
@@ -71,7 +72,7 @@ void playNim() {
             /* generate secret number between 1 and 3: */
             int random = rand() % 3 + 1;
             playerSelection = min(random, numMatches);
-            cout << "AI chooses " << playerSelection << "matches";
+            cout << "AI chooses " << playerSelection << " matches\n";
         }
 
         currentPlayer++;
@@ -87,7 +88,7 @@ void playNim() {
     //player who has to take last match loses;
     if (numPlayers == 2)
     {
-        cout << "Player!" << currentPlayer + 1 << " wins!";
+        cout << "Player" << currentPlayer + 1 << " wins!";
     }
     else
     {
