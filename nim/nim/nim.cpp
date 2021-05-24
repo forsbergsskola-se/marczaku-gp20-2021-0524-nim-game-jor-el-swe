@@ -7,26 +7,17 @@
 
 using namespace std;
 
-constexpr auto GREEN = "\033[32m";
-constexpr auto BOLDWHITE = "\033[1m\033[37m" ;
-
 int main()
 {
+    initGame();
     playNim();
 }
 
 void playNim() {
-    cout << GREEN;
-    /* initialize random seed: */
-    srand(time(NULL));
-
     //Implements the game of Nim: 1/2 players; 24 matches;
     int numMatches = 24;
     int numPlayers = 0;
     int currentPlayer = 0;
-
-    cout << "Welcome to Nim!\n";
-    cout << "Your objective is to make the other player take the last match.\n";
 
     while (numPlayers != 1 && numPlayers != 2)
     {
@@ -43,18 +34,7 @@ void playNim() {
     //players take turns to draw matches; may draw 1,2 or 3 matches (not more or less); 
     while (true)
     {
-        cout << endl;
-        cout << "Matches left: "<< numMatches<<"\n";
-        //make pritty ASCII art of matches
-        for (int i = 0; i < numMatches; i++)
-        {
-            cout << BOLDWHITE;
-            cout << "| ";
-        }
-        cout << GREEN;
-        cout << endl;
-        cout << endl;
-
+        printMatches(numMatches);
 
         int playerSelection = 0;
         if (numPlayers == 2 || currentPlayer == 0)
@@ -91,6 +71,36 @@ void playNim() {
         }
     }
     //player who has to take last match loses;
+    displayWinner(numPlayers, currentPlayer);
+}
+
+void initGame()
+{
+    cout << GREEN;
+    /* initialize random seed: */
+    srand(time(NULL));
+
+    cout << "Welcome to Nim!\n";
+    cout << "Your objective is to make the other player take the last match.\n";
+}
+
+void printMatches(int numMatches)
+{
+    cout << endl;
+    cout << "Matches left: " << numMatches << "\n";
+    //make pritty ASCII art of matches
+    for (int i = 0; i < numMatches; i++)
+    {
+        cout << BOLDWHITE;
+        cout << "| ";
+    }
+    cout << GREEN;
+    cout << endl;
+    cout << endl;
+}
+
+void displayWinner(int numPlayers, int currentPlayer)
+{
     if (numPlayers == 2)
     {
         cout << "Player" << currentPlayer + 1 << " wins!";
