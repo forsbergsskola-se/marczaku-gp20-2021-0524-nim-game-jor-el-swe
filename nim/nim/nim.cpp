@@ -2,19 +2,105 @@
 //
 
 #include <iostream>
+#include <stdlib.h> 
+#include "nim.h"
+
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    playNim();
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void playNim() {
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    /* initialize random seed: */
+    srand(time(NULL));
+
+    //13 - while loop: Implement the game of Nim: 2 players; 24 matches;
+    int numMatches = 24;
+    int numPlayers = 0;
+    int currentPlayer = 0;
+
+    cout << "Welcome to Nim!\n";
+
+    while (numPlayers != 1 && numPlayers != 2)
+    {
+        cout << ("Enter Number of Players (1/2): ");
+        cin >> numPlayers;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    }
+    cout << "You choose " << numPlayers << " number of players" << endl;
+
+    //players take turns to draw matches; may draw 1,2 or 3 matches (not more or less); 
+    while (true)
+    {
+        cout << endl;
+        cout << "Matches left: ";
+        //make pritty ASCII art of matches
+        for (int i = 0; i < numMatches; i++)
+        {
+            cout << "| ";
+        }
+        cout << endl;
+        cout << endl;
+
+
+        int playerSelection = 0;
+        if (numPlayers == 2 || currentPlayer == 0)
+        {
+
+            while (playerSelection != 1 && playerSelection != 2 && playerSelection != 3)
+            {
+                cout << "Player " << currentPlayer + 1 << ", choose number of matches (1-3):";
+
+                cin >> playerSelection;
+                if (!cin)
+                {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
+            }
+        }
+        else //ai's turn
+        {
+            /* generate secret number between 1 and 3: */
+            int random = rand() % 3 + 1;
+            playerSelection = min(random, numMatches);
+            cout << "AI chooses " << playerSelection << "matches";
+        }
+
+        currentPlayer++;
+        currentPlayer &= 0x1;
+
+        numMatches -= playerSelection;
+
+        if (numMatches < 1)
+        {
+            break;
+        }
+    }
+    //player who has to take last match loses;
+    if (numPlayers == 2)
+    {
+        cout << "Player!" << currentPlayer + 1 << " wins!";
+    }
+    else
+    {
+        if (currentPlayer == 0)
+        {
+            cout << "Player wins!";
+        }
+        else
+        {
+            cout << "AI wins!" << endl;
+        }
+
+    }
+}
+
+
