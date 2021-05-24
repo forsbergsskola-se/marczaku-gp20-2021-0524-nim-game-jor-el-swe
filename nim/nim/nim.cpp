@@ -7,17 +7,20 @@
 
 using namespace std;
 
+constexpr auto GREEN = "\033[32m";
+constexpr auto BOLDWHITE = "\033[1m\033[37m" ;
+
 int main()
 {
     playNim();
 }
 
 void playNim() {
-
+    cout << GREEN;
     /* initialize random seed: */
     srand(time(NULL));
 
-    //13 - while loop: Implement the game of Nim: 2 players; 24 matches;
+    //Implements the game of Nim: 1/2 players; 24 matches;
     int numMatches = 24;
     int numPlayers = 0;
     int currentPlayer = 0;
@@ -45,8 +48,10 @@ void playNim() {
         //make pritty ASCII art of matches
         for (int i = 0; i < numMatches; i++)
         {
+            cout << BOLDWHITE;
             cout << "| ";
         }
+        cout << GREEN;
         cout << endl;
         cout << endl;
 
