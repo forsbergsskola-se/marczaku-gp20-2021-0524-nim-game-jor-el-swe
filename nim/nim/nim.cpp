@@ -18,12 +18,9 @@ int main()
 void playNim() {
     //Implements the game of Nim: 1/2 players; 24 matches;
     int numMatches = 24;
-    int numPlayers = 0;
     int currentPlayer = 0;
 
-
-    numPlayers = getNumberFromPlayer("Enter Number of Players (1/2): ", minNumberOfPlayers, maxNumberOfPlayers);
-
+    int numPlayers = getNumberFromPlayer("Enter Number of Players (1/2): ", minNumberOfPlayers, maxNumberOfPlayers);
     cout << "You choose " << numPlayers << " number of players" << endl;
 
     //players take turns to draw matches; may draw 1,2 or 3 matches (not more or less); 
