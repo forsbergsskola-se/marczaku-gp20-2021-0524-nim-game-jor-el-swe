@@ -29,7 +29,51 @@ SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
 
 //The image we will load and show on the screen
-SDL_Surface* gHelloWorld = NULL;
+SDL_Surface* gXOut = NULL;
+
+int main(int argc, char* args[])
+{
+	//main loop flag
+	bool quit = false;
+
+	//Event handler
+	SDL_Event e;
+
+	if (!init()) {
+		printf("Failed to initialize!\n");
+		close();
+		return 0;
+	}
+
+
+	//Fill the surface green
+	SDL_FillRect(gScreenSurface, NULL, SDL_MapRGB(gScreenSurface->format, 0x00, 0xFF, 0x00));
+
+	if (!loadMedia()) {
+		printf("Failed to load media!\n");
+		close();
+		return 0;
+	}
+
+
+
+	//main loop
+	while (!quit) {
+		while (SDL_PollEvent(&e) != 0) {
+			if (e.type == SDL_QUIT) {
+				quit = true;
+			}
+		
+		//Apply the image
+		SDL_BlitSurface(gXOut, NULL, gScreenSurface, NULL);
+		//Update the surface
+		SDL_UpdateWindowSurface(gWindow);
+	}
+
+	close();
+
+	return 0;
+}
 
 bool init()
 {
@@ -65,8 +109,8 @@ bool loadMedia()
 	bool success = true;
 
 	//load splash image
-	gHelloWorld = SDL_LoadBMP("hello_world.bmp");
-	if (gHelloWorld == NULL) {
+	gXOut = SDL_LoadBMP("hello_world.bmp");
+	if (gXOut == NULL) {
 		printf("Unable to load image %s! SDL Error: %s\n", "hello_world.bmp", SDL_GetError());
 		success = false;
 	}
@@ -76,8 +120,8 @@ bool loadMedia()
 void close()
 {
 	//Deallocate surface
-	SDL_FreeSurface(gHelloWorld);
-	gHelloWorld = NULL;
+	SDL_FreeSurface(gXOut);
+	gXOut = NULL;
 
 	//Destroy window
 	SDL_DestroyWindow(gWindow);
@@ -88,35 +132,6 @@ void close()
 }
 
 
-int main( int argc, char* args[] )
-{
-	if (!init()) {
-		printf("Failed to initialize!\n");
-		close();
-		return 0;
-	}
-		
 
-	//Fill the surface green
-	SDL_FillRect(gScreenSurface, NULL, SDL_MapRGB(gScreenSurface->format, 0x00, 0xFF, 0x00));
-	
-	if (!loadMedia()) {
-		printf("Failed to load media!\n");
-		close();
-		return 0;
-	}
-		
-	//Apply the image
-	SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
-	//Update the surface
-	SDL_UpdateWindowSurface(gWindow);
-
-	//Wait 5 seconds
-	SDL_Delay(5000);
-
-	close();
-
-	return 0;
-}
 
 
