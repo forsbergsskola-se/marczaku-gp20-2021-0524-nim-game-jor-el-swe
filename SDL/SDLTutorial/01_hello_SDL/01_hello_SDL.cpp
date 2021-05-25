@@ -92,15 +92,17 @@ int main( int argc, char* args[] )
 {
 	if (!init()) {
 		printf("Failed to initialize!\n");
+		close();
 		return 0;
 	}
 		
 
-	//Fill the surface white
-	//SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x00, 0xFF, 0x00));
+	//Fill the surface green
+	SDL_FillRect(gScreenSurface, NULL, SDL_MapRGB(gScreenSurface->format, 0x00, 0xFF, 0x00));
 	
 	if (!loadMedia()) {
 		printf("Failed to load media!\n");
+		close();
 		return 0;
 	}
 		
@@ -109,7 +111,7 @@ int main( int argc, char* args[] )
 	//Update the surface
 	SDL_UpdateWindowSurface(gWindow);
 
-	//Wait two seconds
+	//Wait 5 seconds
 	SDL_Delay(5000);
 
 	close();
