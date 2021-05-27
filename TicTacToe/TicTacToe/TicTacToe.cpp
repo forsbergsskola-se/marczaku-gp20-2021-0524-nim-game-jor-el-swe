@@ -10,7 +10,7 @@ int main()
 {
     //char playField[9] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
     char playField[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
-    int currentPlayer = 0, player1Score = 0, player2Score = 0;
+    int currentPlayer = 0, player1Score = 0, player2Score = 0, numberFilledBoxes=0;
 
     initGame();
 
@@ -48,10 +48,12 @@ int main()
 
         currentPlayer++;
         currentPlayer &= 0x1;
+        numberFilledBoxes++;
 
 
-        if (CalculateWinner())
+        if (CalculateWinner() || GameIsDraw(numberFilledBoxes))
         {
+            drawPlayingField(playField);
             break;
         }
 
@@ -87,6 +89,16 @@ void initGame()
 
 bool CalculateWinner()
 {
+    return false;
+}
+
+bool GameIsDraw(int numberFilledBoxes)
+{
+    if(numberFilledBoxes == 9)
+    {
+        cout << "Game was a draw";
+        return true;
+    }
     return false;
 }
 
