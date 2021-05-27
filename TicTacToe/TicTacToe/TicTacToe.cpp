@@ -30,7 +30,10 @@ int main()
                 drawPlayingField(playField);
                 playerSelection = getNumberFromPlayer(instruction, 1, 9);
                 if (playField[playerSelection-1] == ' ') {
-                    playField[playerSelection-1] = (char)playerSelection+48;
+                    playField[playerSelection - 1] = currentPlayer == 1 ? 'X' : 'O';
+                    //update player score to check for win condition
+
+
                     validInput = true;
                 }
             }
