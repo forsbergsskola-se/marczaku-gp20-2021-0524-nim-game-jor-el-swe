@@ -15,10 +15,16 @@ Tip: Both exercises will be a lot easier, if you output one character at a time!
 */
 int main()
 {
-    int intToConvert = getNumberFromPlayer("Enter a number to convert to binary representation: ", 0, INT32_MAX);
-    cout << "You want to convert: " << intToConvert << endl;
-    string result = ConvertDecToBinDivMod(intToConvert);
-    cout << "Binary representation using / and % operators: " <<result;
+    while (true) {
+        int intToConvert = getNumberFromPlayer("Enter a number to convert to binary representation: ", 0, INT32_MAX);
+        cout << "You want to convert: " << intToConvert << endl;
+        string result = ConvertDecToBinDivMod(intToConvert);
+        cout << "Binary representation using / and % operators: " << result << endl;
+
+        result = ConvertDecToBinBinaryOp(intToConvert);
+        cout << "Binary representation using binary operations: " << result << endl;
+        cout << endl;
+    }
 }
 
 int getNumberFromPlayer(string instruction, int minSelection, int maxSelection)
@@ -60,4 +66,21 @@ string ConvertDecToBinDivMod(int integerToConvert)
         resultString = resultString + to_string(binary[i]);
     }
     return resultString;
+}
+
+string ConvertDecToBinBinaryOp(int integerToConvert)
+{
+    if (integerToConvert == 0)
+        return "0b0";
+
+    
+    string bitString;
+    while (integerToConvert != 0) {
+        bitString = bitString + to_string(integerToConvert & 1);
+        integerToConvert>>=1;
+    }
+
+    std::reverse(bitString.begin(), bitString.end());
+    
+    return "0b" + bitString;
 }
