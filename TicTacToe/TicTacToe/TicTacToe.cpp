@@ -8,7 +8,6 @@ using namespace std;
 
 int main()
 {
-    //char playField[9] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
     char playField[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
     int valueField[9] = {2,3,5,7,11,13,17,19,23};
     int currentPlayer = 0, player1Score = 1, player2Score = 1, numberFilledBoxes=0;
@@ -23,9 +22,9 @@ int main()
         drawPlayingField(playField);
         if (numPlayers == 2 || currentPlayer == 0)
         {
-            std::ostringstream oss;
+            ostringstream oss;
             oss << "Player " << currentPlayer + 1 << ", choose a box (1-9):";
-            std::string instruction = oss.str();
+            string instruction = oss.str();
 
             bool validInput = false;
             while (!validInput) {
