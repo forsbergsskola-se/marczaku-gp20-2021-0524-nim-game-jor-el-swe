@@ -7,7 +7,15 @@ using namespace std;
 
 int main()
 {
+    char playField[9];
+
+    for (int i=0; i< 9; i++)
+    {
+        playField[i] = ' ';
+    }
     while (true) {
+
+        //drawPlayingField();
         int playerSelection = getNumberFromPlayer("choose a box for your placement: ", 1, 9);
 
         cout << "you chose: " << playerSelection << endl;
