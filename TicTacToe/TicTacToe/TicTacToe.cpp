@@ -34,8 +34,6 @@ int main()
                     playField[playerSelection - 1] = currentPlayer == 0 ? 'X' : 'O';
                     //update player score to check for win condition
                     currentPlayer == 0 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
-                    //cout << "player 1 score: " << player1Score << endl;
-                    //cout << "player 2 score: " << player2Score << endl;
                     validInput = true;
                     numberFilledBoxes++;
                 }
@@ -55,8 +53,6 @@ int main()
                     playField[playerSelection - 1] = currentPlayer == 0 ? 'X' : 'O';
                     //update player score to check for win condition
                     currentPlayer == 0 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
-                    //cout << "player 1 score: " << player1Score << endl;
-                    //cout << "player 2 score: " << player2Score << endl;
                     validInput = true;
                     numberFilledBoxes++;
                 }
