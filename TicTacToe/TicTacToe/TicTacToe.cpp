@@ -20,6 +20,7 @@ int main()
 
     while (true) {
         int playerSelection = 0;
+        drawPlayingField(playField);
         if (numPlayers == 2 || currentPlayer == 0)
         {
             std::ostringstream oss;
@@ -28,14 +29,13 @@ int main()
 
             bool validInput = false;
             while (!validInput) {
-                drawPlayingField(playField);
                 playerSelection = getNumberFromPlayer(instruction, 1, 9);
                 if (playField[playerSelection-1] == ' ') {
                     playField[playerSelection - 1] = currentPlayer == 0 ? 'X' : 'O';
                     //update player score to check for win condition
-                    currentPlayer == 1 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
-                    cout << "player 1 score: " << player1Score << endl;
-                    cout << "player 2 score: " << player2Score << endl;
+                    currentPlayer == 0 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
+                    //cout << "player 1 score: " << player1Score << endl;
+                    //cout << "player 2 score: " << player2Score << endl;
                     validInput = true;
                     numberFilledBoxes++;
                 }
@@ -46,10 +46,22 @@ int main()
         }
         else //ai's turn
         {
-            /* generate secret number between 1 and 9: */
-            int random = rand() % 9 + 1;
-            playerSelection = random;
-            cout << "AI chooses " << playerSelection << " matches\n";
+            bool validInput = false;
+            while (!validInput) {
+                /* generate secret number between 1 and 9: */
+                int random = rand() % 9 + 1;
+                playerSelection = random;
+                  if (playField[playerSelection - 1] == ' ') {
+                    playField[playerSelection - 1] = currentPlayer == 0 ? 'X' : 'O';
+                    //update player score to check for win condition
+                    currentPlayer == 0 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
+                    //cout << "player 1 score: " << player1Score << endl;
+                    //cout << "player 2 score: " << player2Score << endl;
+                    validInput = true;
+                    numberFilledBoxes++;
+                }
+            }
+            cout << "AI chooses box:" << playerSelection << "\n";
         }
 
         if (CalculateWinner(player1Score, currentPlayer) || CalculateWinner(player2Score, currentPlayer) || GameIsDraw(numberFilledBoxes))
