@@ -24,7 +24,7 @@ int main()
         if (numPlayers == 2 || currentPlayer == 0)
         {
             std::ostringstream oss;
-            oss << "Player " << currentPlayer + 1 << ", choose a box:";
+            oss << "Player " << currentPlayer + 1 << ", choose a box (1-9):";
             std::string instruction = oss.str();
 
             bool validInput = false;
