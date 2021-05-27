@@ -31,12 +31,13 @@ int main()
                 drawPlayingField(playField);
                 playerSelection = getNumberFromPlayer(instruction, 1, 9);
                 if (playField[playerSelection-1] == ' ') {
-                    playField[playerSelection - 1] = currentPlayer == 1 ? 'X' : 'O';
+                    playField[playerSelection - 1] = currentPlayer == 0 ? 'X' : 'O';
                     //update player score to check for win condition
                     currentPlayer == 1 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
                     cout << "player 1 score: " << player1Score << endl;
                     cout << "player 2 score: " << player2Score << endl;
                     validInput = true;
+                    numberFilledBoxes++;
                 }
             }
            
@@ -51,16 +52,14 @@ int main()
             cout << "AI chooses " << playerSelection << " matches\n";
         }
 
-        currentPlayer++;
-        currentPlayer &= 0x1;
-        numberFilledBoxes++;
-
-
         if (CalculateWinner(player1Score, currentPlayer) || CalculateWinner(player2Score, currentPlayer) || GameIsDraw(numberFilledBoxes))
         {
             drawPlayingField(playField);
+            system("pause");
             break;
         }
+        currentPlayer++;
+        currentPlayer &= 0x1;
 
     }
 }
@@ -106,7 +105,7 @@ bool CalculateWinner(int playerScore, int currentPlayer)
     for (int i = 0; i < 8; i++) {
         if (playerScore % valueField[i] == 0) {
             winnerPlayer = true;
-            cout << "We have a winner! Player: " << currentPlayer << endl;
+            cout << "We have a winner! Player: " << currentPlayer +1 << endl;
             return true;
         }   
     }
