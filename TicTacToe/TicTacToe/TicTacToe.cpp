@@ -8,7 +8,8 @@ using namespace std;
 
 int main()
 {
-    char playField[9] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
+    //char playField[9] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
+    char playField[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
     int currentPlayer = 0, player1Score = 0, player2Score = 0;
 
     initGame();
@@ -17,8 +18,6 @@ int main()
     cout << "You choose " << numPlayers << " number of players" << endl;
 
     while (true) {
-
-        drawPlayingField(playField);
         int playerSelection = 0;
         if (numPlayers == 2 || currentPlayer == 0)
         {
@@ -26,7 +25,16 @@ int main()
             oss << "Player " << currentPlayer + 1 << ", choose a box:";
             std::string instruction = oss.str();
 
-            playerSelection = getNumberFromPlayer(instruction, 1, 9);
+            bool validInput = false;
+            while (!validInput) {
+                drawPlayingField(playField);
+                playerSelection = getNumberFromPlayer(instruction, 1, 9);
+                if (playField[playerSelection-1] == ' ') {
+                    playField[playerSelection-1] = (char)playerSelection+48;
+                    validInput = true;
+                }
+            }
+           
             cout << "you chose: " << playerSelection << endl;
             cout << endl;
         }
@@ -88,7 +96,7 @@ void drawPlayingField(char* playField)
     for (int i = 0; i < 3; i++) {
         cout << "|";
         for (int j = 0; j < 3; j++) {
-            cout << playField[i+j] << "|";;
+            cout << playField[i*3+j] << "|";;
         }
         cout << endl<< "-------"<<endl;
 
