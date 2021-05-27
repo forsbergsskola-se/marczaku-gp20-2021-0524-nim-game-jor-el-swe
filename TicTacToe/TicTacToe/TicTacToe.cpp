@@ -10,7 +10,8 @@ int main()
 {
     //char playField[9] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
     char playField[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
-    int currentPlayer = 0, player1Score = 0, player2Score = 0, numberFilledBoxes=0;
+    int valueField[9] = {2,3,5,7,11,13,17,19,23};
+    int currentPlayer = 0, player1Score = 1, player2Score = 1, numberFilledBoxes=0;
 
     initGame();
 
@@ -32,8 +33,9 @@ int main()
                 if (playField[playerSelection-1] == ' ') {
                     playField[playerSelection - 1] = currentPlayer == 1 ? 'X' : 'O';
                     //update player score to check for win condition
-
-
+                    currentPlayer == 1 ? player1Score *= valueField[playerSelection - 1] : player2Score *= valueField[playerSelection - 1];
+                    cout << "player 1 score: " << player1Score << endl;
+                    cout << "player 2 score: " << player2Score << endl;
                     validInput = true;
                 }
             }
@@ -54,7 +56,7 @@ int main()
         numberFilledBoxes++;
 
 
-        if (CalculateWinner() || GameIsDraw(numberFilledBoxes))
+        if (CalculateWinner(player1Score, currentPlayer) || CalculateWinner(player2Score, currentPlayer) || GameIsDraw(numberFilledBoxes))
         {
             drawPlayingField(playField);
             break;
@@ -90,8 +92,25 @@ void initGame()
     cout << "Your objective is to get three in a row.\n";
 }
 
-bool CalculateWinner()
+bool CalculateWinner(int playerScore, int currentPlayer)
 {
+    //prime numbers used to calculate winner
+    /*      2, 3, 5, 
+            7, 11, 13, 
+            17, 19, 23*/
+
+    int valueField[8] = { 2*3*5, 7*11*13, 17*19*23, 2*7*17, 3*11*19, 5*13*23, 2*11*23, 5*11*17};
+
+    bool winnerPlayer = false;
+
+    for (int i = 0; i < 8; i++) {
+        if (playerScore % valueField[i] == 0) {
+            winnerPlayer = true;
+            cout << "We have a winner! Player: " << currentPlayer << endl;
+            return true;
+        }   
+    }
+
     return false;
 }
 

@@ -15,6 +15,6 @@ int main();
 
 int getNumberFromPlayer(string instruction, int minSelection, int maxSelection);
 void initGame();
-bool CalculateWinner();
+bool CalculateWinner(int playerScore, int currentPlayer);
 bool GameIsDraw(int numberFilledBoxes);
 void drawPlayingField(char *playField);
