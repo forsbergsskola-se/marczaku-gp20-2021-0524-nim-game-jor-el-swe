@@ -1,0 +1,1 @@
+you need SDL installed to make SDL compile :)
